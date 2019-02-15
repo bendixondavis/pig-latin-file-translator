@@ -12,25 +12,35 @@ def search_for_punctuation(word):
 
 def pigWord(word):
     punctList = []
+
+    #this loop will search for punctuation in the word, and if there is any
+    #store it in a separate list to be reattached to the word after parsing into pig latin
     while search_for_punctuation(word) != -1:
+        letter_list = list(word)
         result = search_for_punctuation(word)
         punctList.append(result)
-        word = word[result[1] + 1 : len(word)]
+        letter_list.pop(result[1])
+        word = "".join(letter_list)
+
     print(punctList)
     print(word)
-    #firstLetter = word[0]
-    #newWord = word.split(firstLetter)
-    #newWord = "".join(newWord) + "".join(firstLetter + 'ay')
-    #return newWord
+    #this block of code actually turns the word into pig latin
+    firstLetter = letter_list.pop(0)
+    letter_list.insert(len(letter_list), firstLetter)
+    letter_list.append('a')
+    letter_list.append('y')
 
+    for item in punctList:
+        letter_list.insert(item[1], item[0])
 
+    newWord = "".join(letter_list)
+    return newWord
+
+#this is the main program that uses above functions to parse to pig latin
 stuffToParse = input("Please give me a sentence to translate to pig latin: ")
 newStuff = stuffToParse.split()
 x = 0
 finalStuff = ''
-#for _ in newStuff:
-#    finalStuff = finalStuff + (pigWord(newStuff[x])) + " "
-#    x=x+1
-#print(finalStuff)
-#print(search_for_puctuation(stuffToParse))
-pigWord(stuffToParse)
+for i in range(0,len(newStuff)):
+    finalStuff = finalStuff + (pigWord(newStuff[i])) + " "
+print(finalStuff)
