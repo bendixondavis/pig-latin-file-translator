@@ -12,7 +12,7 @@ def search_for_punctuation(word):
 
 def pigWord(word):
     punctList = []
-
+    letter_list = list(word)
     #this loop will search for punctuation in the word, and if there is any
     #store it in a separate list to be reattached to the word after parsing into pig latin
     while search_for_punctuation(word) != -1:
@@ -31,7 +31,10 @@ def pigWord(word):
     letter_list.append('y')
 
     for item in punctList:
-        letter_list.insert(item[1], item[0])
+        if item[1] > (len(letter_list) / 2): #if index of punctuation is more than halfway through word
+            letter_list.insert(item[1] + 2 + len(punctList), item[0]) #offset the index by 2 to account for 2 new letters
+        else:
+            letter_list.insert(item[1], item[0])
 
     newWord = "".join(letter_list)
     return newWord
