@@ -1,4 +1,5 @@
 import re
+import sys
 
 #returns tuple of the punctuation character found and the position it was found at or -1 if not found
 def search_for_punctuation(word, pos = 0):
@@ -45,8 +46,10 @@ def pigWord(word):
     return newWord
 
 #this is the main program that uses above functions to parse to pig latin
-stuffToParse = input("Please give me a sentence to translate to pig latin: ")
-newStuff = stuffToParse.split()
+input_file_name = str(sys.argv[1]) #get command arg for file to parse
+input_file = open(input_file_name,"r")   #opens bin file that contains all of the story text
+input_text = input_file.read()    #reads the contents of the file into a string
+newStuff = input_text.split()
 x = 0
 finalStuff = ''
 for i in range(0,len(newStuff)):
